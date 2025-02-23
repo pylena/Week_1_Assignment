@@ -14,7 +14,11 @@ This project involves creating a fully functional, responsive user registration 
   - Validates email format and password strength.
   - Displays error messages for invalid inputs.
 - **API Integration:**
-  - Fetches company registration details from an external API (using fetch and Async/Await).
+  - Fetches company registration details from an external API.
+  - **Dark Mode Toggle:**
+    
+    
+    
  
 
 ## Technologies Used
@@ -22,7 +26,7 @@ This project involves creating a fully functional, responsive user registration 
   - HTML5 (Semantic elements)
   - CSS (TailwindCSS, Material UI)
   - JavScript (ES6+, Async/Await, Promises, Modules)
-  - T
+    
 - **API Integration:**
   - Fetch API for data retrieval and handling API responses.
 
