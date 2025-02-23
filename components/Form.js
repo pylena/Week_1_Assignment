@@ -1,7 +1,9 @@
 import { validateForm } from "../utils/validation.js";
+import { FormHandler } from "./form-handler.js";
 export class Form {
     constructor() {
         this.form = document.createElement("form");
+        this.formHandler = new FormHandler(this.form);
 
         this.form.innerHTML = `
             <div class="grid grid-cols-2 gap-4">
@@ -28,7 +30,8 @@ export class Form {
             </div>
             <div class="space-y-2">
                 <label class="block text-gray-700">الرقم الضريبي للمنشأه  </label>
-                <input type="text" class="w-full p-2 border rounded-md">
+                <input type="text" class="w-full p-2 border rounded-md" id="taxNumber">
+                <span class="error" id="taxNumberError"></span><br><br>
             </div>
         </div>
     
@@ -40,7 +43,8 @@ export class Form {
             </div>
             <div class="space-y-2">
                 <label class="block text-gray-700">رقم الهاتف  </label>
-                <input type="tel" class="w-full p-2 border rounded-md">
+                <input type="tel" class="w-full p-2 border rounded-md" id="phone">
+                <span class="error" id="phoneError"></span><br><br>
             </div>
         </div>
     
@@ -54,23 +58,23 @@ export class Form {
             <div class="space-y-2">
                 <label class="block text-gray-700"> تأكيد الرقم السري </label>
                 <input type="password" class="w-full p-2 border rounded-md">
-                 <span class="error" id="passwordError"></span><br><br>
 
             </div>
         </div>
     
         <div class="grid grid-cols-3 gap-4 mt-4">
             <div class="space-y-2">
-                <label class="block text-gray-700">City</label>
-                <input type="text" class="w-full p-2 border rounded-md">
+                <label class="block text-gray-700">المدينة</label>
+                <input type="text" class="w-full p-2 border rounded-md id="city">
             </div>
             <div class="space-y-2">
-                <label class="block text-gray-700">Region</label>
-                <input type="text" class="w-full p-2 border rounded-md">
+                <label class="block text-gray-700">الشارع</label>
+                <input type="text" class="w-full p-2 border rounded-md id="street">
             </div>
             <div class="space-y-2">
                 <label class="block text-gray-700"> الرمز البريدي</label>
-                <input type="text" class="w-full p-2 border rounded-md">
+                <input type="text" class="w-full p-2 border rounded-md id="zipcode">
+                
             </div>
         </div>
     
@@ -89,38 +93,48 @@ export class Form {
         `;
 
         this.form.addEventListener("submit", this.handleSubmit.bind(this));
+        this.formHandler.populateForm();  
     }
 
+   
     handleSubmit(event) {
         event.preventDefault();
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
         const password = document.getElementById("password").value;
+        const taxNumber = document.getElementById("taxNumber").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        
 
-        const errors = this.validateForm(name, email, password);
+        const errors = this.validateForm(name, email, password, taxNumber, phone);
 
         document.getElementById("nameError").textContent = errors.name || "";
         document.getElementById("emailError").textContent = errors.email || "";
         document.getElementById("passwordError").textContent = errors.password || "";
+        document.getElementById("taxNumberError").textContent = errors.taxNumber || "";
+        document.getElementById("phoneError").textContent = errors.phone || "";
 
-        if (!errors.name && !errors.email && !errors.password) {
+        if (!errors.name && !errors.email && !errors.password, !errors.taxNumber, !errors.phone) {
             alert("Registration successful!");
             localStorage.setItem("user", JSON.stringify({ name, email }));
         }
     }
 
-    validateForm(name, email, password) {
+    validateForm(name, email, password, taxNumber,
+        phone) {
         const errors = {};
 
-        if (!name) errors.name = "Name is required!";
+        if (!name) errors.name = "!اسم الشركة مطلوب";
         if (!email) {
-            errors.email = "Email is required!";
+            errors.email = "الإيميل مطلوب!";
         } else if (!/^\S+@\S+\.\S+$/.test(email)) {
             errors.email = "Invalid email format!";
         }
         if (!password || password.length < 6) {
             errors.password = "Password must be at least 6 characters!";
         }
+        if (!taxNumber) errors.taxNumber = "!الرقم الضريبي مطلوب";
+        if (!phone) errors.phone = "!رقم الهاتف مطلوب";
 
         return errors;
     }
