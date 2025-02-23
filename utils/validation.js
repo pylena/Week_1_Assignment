@@ -19,5 +19,7 @@ export function validateForm(name, email, password) {
         errors.password = "This password is too common.";
     }
 
+    
+
     return errors;
-}
+};

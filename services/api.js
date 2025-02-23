@@ -9,7 +9,6 @@ export async function fetchUserData(userId = 1) {
             name: data.name || "N/A",
             email: data.email || "N/A",
             phone: data.phone || "N/A",
-            
             city: data.address.city || "N/A",
             street: data.street || "N/A",
             zipcode: data.zipcode || "N/A"
