@@ -17,7 +17,7 @@ This project involves creating a fully functional, responsive user registration 
 - **API Integration:**
   - Fetches company registration details from an external API.
   - **Dark Mode Toggle:**
-    - <a href="https://salamah-regstration-portal.netlify.app/"> Click here to try out! </a>.
+    
     
     
     
@@ -33,5 +33,6 @@ This project involves creating a fully functional, responsive user registration 
   - Fetch API for data retrieval and handling API responses.
  
 ### Demo
+<a href="https://salamah-regstration-portal.netlify.app/"> Click here to try out! </a>.
 
 
